@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <main>
+        <h2>Create Account</h2>
+        <!--
+        Form for account creation that currently sends the information to #
+        -->
+        <form action="#">
+            <label for="username">Username</label><br>
+            <input type="text" id="username" name="username" required><br>
+
+            <label for="name">Name</label><br>
+            <input type="text" id="name" name="name"required><br>
+
+            <label for="email">Email</label><br>
+            <input type="email" id="email" name="email" required><br>
+
+            <label for="email">Image Category</label><br>
+            <select id="imagecategory" name="imagecategory" required>
+                <option value disabled selected>Select a Category</option>
+                <option value="dogs">Dogs</option>
+                <option value="cars">Cars</option>
+                <option value="flowers">Flowers</option>
+                <option value="buildings">Buildings</option>
+                <option value="buildings">Buses</option>
+            </select><br>
+
+            <!--
+            Make columns to resemble the figma design
+            -->
+            <div>
+                <label>Image Offset Pattern</label><br>
+                <label for="vertical">Vertical</label><br>
+                <input type="vertical" id="vertical" name="vertical" required><br>
+
+                <label for="horizontal">Horizontal</label><br>
+                <input type="horizontal" id="horizontal" name="horizontal" required><br>
+
+            </div>
+            
+            <label for="firstfacelocation">First Face Location</label><br>
+            <select id="firstfacelocation" name="firstfacelocation" required>
+                <option value disabled selected>Select First Location</option>
+                <option value="leye">Left Eye</option>
+                <option value="reye">Right Eye</option>
+                <option value="nose">Nose</option>
+                <option value="chin">Chin</option>
+                <option value="forehead">Forehead</option>
+            </select><br>
+
+            <label for="secondfacelocation">Second Face Location</label><br>
+            <select id="imagecategory" name="imagecategory" required>
+                <option value disabled selected>Select Second Location</option>
+                <option value="leye">Left Eye</option>
+                <option value="reye">Right Eye</option>
+                <option value="nose">Nose</option>
+                <option value="chin">Chin</option>
+                <option value="forehead">Forehead</option>
+            </select><br>
+
+            <label for="rotationvalue">Rotation Value</label><br>
+            <input type="rotationvalue" id="rotationvalue" name="rotationvalue" required><br><br>
+
+            <input type="submit" value="Continue to Capture Face Image">
+        </form>
+    </main> 
+</body>
+</html>
+
