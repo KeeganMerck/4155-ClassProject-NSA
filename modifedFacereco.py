@@ -1,4 +1,5 @@
 #Heavily based on website below. Will be changed overtime
+#You need c++ installed to make this work aswell
 #https://realpython.com/face-recognition-with-python/
 #we might have to change a lot still iDk
 from pathlib import Path
@@ -8,8 +9,6 @@ from collections import Counter
 from PIL import Image, ImageDraw 
 #important path
 DEFAULT_ENCODINGS_PATH = Path("output/encodings.pkl")
-
-
 
 
 Path("output").mkdir(exist_ok=True)
@@ -73,7 +72,7 @@ def recognize_faces( image_location: str, model: str = "hog",encodings_location:
     #call the recognize face funciton and it doesnt exist here
     for bounding_box, unknown_encoding in zip(input_face_locations, input_face_encodings ):
             name = recognize_face(unknown_encoding, loaded_encodings)
-            
+            #if there is no name in the code then you  
             if not name:
                 name = "Unknown"
             personName = name
@@ -126,6 +125,7 @@ def validate(model: str = "hog"):
 
 
 #called by imcap.py
+#all print statements will be deleted once debugging is done
 def login(register, login, userName):
 #if they are a new account, encode adn validate them, 
     if register == 1:

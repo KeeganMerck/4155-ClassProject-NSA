@@ -1,4 +1,23 @@
-#to run this, i
+#
+#
+#  _____ _   _  _____ _______ _____  _    _  _____ _______ _____ ____  _   _  _____ 
+# |_   _| \ | |/ ____|__   __|  __ \| |  | |/ ____|__   __|_   _/ __ \| \ | |/ ____|
+#   | | |  \| | (___    | |  | |__) | |  | | |       | |    | || |  | |  \| | (___  
+#   | | | . ` |\___ \   | |  |  _  /| |  | | |       | |    | || |  | | . ` |\___ \ 
+# # _| |_| |\  |____) |  | |  | | \ \| |__| | |____   | |   _| || |__| | |\  |____) |
+# |_____|_| \_|_____/   |_|  |_|  \_\\____/ \_____|  |_|  |_____\____/|_| \_|_____/ 
+  #----------------------------------------------------------------------------------                                                                                 
+  #Try doing pip install -r requirements.txt
+#if it tells you to install the C++ thing do that 
+#ONce all the dependencies are installed, run python imcap.py in the bash terminal
+#--OPTIONS---
+# register = 0 when using an existing username and account = 1 with a new one
+#username = username who is logging in with the picture
+#loginimage = the imagethat will be verified with the face recognition system
+#***when this is incorporated with the resto f the applications these will be taken from the app so this file will not have to be
+#user edited                                                                            
+
+
 from modifedFacereco import login
 # importing OpenCV library
 #import keyboard button lib
@@ -7,6 +26,7 @@ import os
 import msvcrt
 # initialize the camera
 register = 0
+loginimage = "jerb.jpg"
 #this var will be changed for when we start getting a usernaem from the website
 username = "jerm" 
 current_dir = os.getcwd()
@@ -24,7 +44,7 @@ if register == 1:
     cam = cv2.VideoCapture(0)
     #loop 10 times
     i = 0
-    print("hit da space bar to take pictures ho")
+    print("Hit the space bar 10 time while you rotate your face clockwise to take photos of yourself at different angles")
     #if the user hits the spacebar
     if ord(msvcrt.getch()) == 32:
         for i in range(12):
@@ -63,4 +83,4 @@ if register == 1:
             else:
                 print("No image detected. Please! try again")
 #jerb.jpg will be changed out for the user captured image from their facecam when they recognize themselves in
-login(register, "jerb.jpg", username)
+login(register, loginimage, username)
