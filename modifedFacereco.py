@@ -1,8 +1,8 @@
 #Heavily based on website below. Will be changed overtime
 #https://realpython.com/face-recognition-with-python/
+#we might have to change a lot still iDk
 from pathlib import Path
 import pickle
-
 import face_recognition
 from collections import Counter
 from PIL import Image, ImageDraw 
@@ -125,14 +125,14 @@ def validate(model: str = "hog"):
             )
 
 
-#we will know to append encodings for this because of its going to a new user and the only time you need
-#to use encode_known_faces() is when a user is being created
+#called by imcap.py
 def login(register, login, userName):
-    
+#if they are a new account, encode adn validate them, 
     if register == 1:
         encode_known_faces(usertestData)
         validate("hog")
         named = recognize_faces(login, "hog", DEFAULT_ENCODINGS_PATH)
+        #if their name does not match the username detected don't let them in 1 and -1 represent in or not
         if named.lower() != userName.lower():
             print("DONT LOG THEM IN NOOOO AHHHHHHH")
             loginVal = -1
@@ -140,6 +140,7 @@ def login(register, login, userName):
             print("Yeah they're chill")
             loginVal = 1
         print(named, userName)
+#if they are not new just get the name detected and then see if they are loginable
     if register == 0:
         named = recognize_faces(login, "hog", DEFAULT_ENCODINGS_PATH)
         print(named, userName)

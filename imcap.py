@@ -1,4 +1,4 @@
-# program to capture 10 images pythong
+#to run this, i
 from modifedFacereco import login
 # importing OpenCV library
 #import keyboard button lib
@@ -7,8 +7,11 @@ import os
 import msvcrt
 # initialize the camera
 register = 0
+#this var will be changed for when we start getting a usernaem from the website
 username = "jerm" 
 current_dir = os.getcwd()
+
+#directory informatoin about stuff 
 final_dr = os.path.join(current_dir, r''"test/"+username)
 if not os.path.exists(final_dr):
     os.makedirs(final_dr)
@@ -59,4 +62,5 @@ if register == 1:
                 cv2.destroyWindow("getFace")
             else:
                 print("No image detected. Please! try again")
+#jerb.jpg will be changed out for the user captured image from their facecam when they recognize themselves in
 login(register, "jerb.jpg", username)
