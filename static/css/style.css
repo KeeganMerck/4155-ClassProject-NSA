@@ -1,0 +1,36 @@
+  .image_grid tr th img {
+    margin: 4px;
+    vertical-align: middle;
+    width: 70px;
+    border:3px solid transparent
+  }
+
+  .image_grid{
+    margin:auto; 
+  }
+
+  /* Style for flash messages */
+.flashes {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+}
+
+/* Style for success messages */
+.flashes .success {
+  background-color: #4CAF50; /* Green background color */
+  color: #fff; /* White text color */
+  padding: 10px;
+  margin: 10px;
+  border-radius: 5px;
+}
+
+/* Style for error messages */
+.flashes .error {
+  background-color: #ff4b33; /* Red background color */
+  color: #fff; /* White text color */
+  padding: 10px;
+  margin: 10px;
+  border-radius: 5px;
+}
