@@ -6,7 +6,7 @@
         <!--
         Form for account creation that currently sends the information to #
         -->
-        <form action="#">
+        <form action="/create_account" method="POST">
             <label for="username">Username</label><br>
             <input type="text" id="username" name="username" required><br>
 
@@ -16,14 +16,14 @@
             <label for="email">Email</label><br>
             <input type="email" id="email" name="email" required><br>
 
-            <label for="email">Image Category</label><br>
+            <label for="imagecategory">Image Category</label><br>
             <select id="imagecategory" name="imagecategory" required>
                 <option value disabled selected>Select a Category</option>
                 <option value="dogs">Dogs</option>
                 <option value="cars">Cars</option>
                 <option value="flowers">Flowers</option>
                 <option value="buildings">Buildings</option>
-                <option value="buildings">Buses</option>
+                <option value="buses">Buses</option>
             </select><br>
 
             <!--
@@ -50,7 +50,7 @@
             </select><br>
 
             <label for="secondfacelocation">Second Face Location</label><br>
-            <select id="imagecategory" name="imagecategory" required>
+            <select id="secondfacelocation" name="secondfacelocation" required>
                 <option value disabled selected>Select Second Location</option>
                 <option value="leye">Left Eye</option>
                 <option value="reye">Right Eye</option>
