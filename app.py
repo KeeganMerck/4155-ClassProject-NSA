@@ -20,10 +20,13 @@ from flask import render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
-
+from blueprints.image_grid import router as image_router
 
 # init app variable
 app = Flask(__name__)
+
+# init secret key
+app.secret_key = 'your_secret_key'
 
 # Set database URI
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///4155User.db'
@@ -33,6 +36,9 @@ db = SQLAlchemy(app)
 
 # init SQLAlchemy instance
 migrate = Migrate(app, db)
+
+# calling of image grid blueprints to handle routes
+app.register_blueprint(image_router)
 
 @app.route('/create_account', methods=['GET', 'POST'])
 def create_account():

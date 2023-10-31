@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image-Selection</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body>
+    <main>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul class="flashes">
+                    {% for category, message in messages %}
+                        <li class="{{ category }}">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+        <form action="process_form.py" method="post">
+            <table class="image_grid">
+                <tr>
+                    <th><img src="{{ images[0] }}" id="0" onclick="toggleSelection('0')"></th>
+                    <th><img src="{{ images[1] }}" id="1" onclick="toggleSelection('1')"></th>
+                    <th><img src="{{ images[2] }}" id="2" onclick="toggleSelection('2')"></th>
+                    <th><img src="{{ images[3] }}" id="3" onclick="toggleSelection('3')"></th>
+                    <th><img src="{{ images[4] }}" id="4" onclick="toggleSelection('4')"></th>
+                </tr>
+                <tr>
+                    <th><img src="{{ images[5] }}" id="5" onclick="toggleSelection('5')"></th>
+                    <th><img src="{{ images[6] }}" id="6" onclick="toggleSelection('6')"></th>
+                    <th><img src="{{ images[7] }}" id="7" onclick="toggleSelection('7')"></th>
+                    <th><img src="{{ images[8] }}" id="8" onclick="toggleSelection('8')"></th>
+                    <th><img src="{{ images[9] }}" id="9" onclick="toggleSelection('9')"></th>
+                </tr>
+                <tr>
+                    <th><img src="{{ images[10] }}" id="10" onclick="toggleSelection('10')"></th>
+                    <th><img src="{{ images[11] }}" id="11" onclick="toggleSelection('11')"></th>
+                    <th><img src="{{ images[12] }}" id="12" onclick="toggleSelection('12')"></th>
+                    <th><img src="{{ images[13] }}" id="13" onclick="toggleSelection('13')"></th>
+                    <th><img src="{{ images[14] }}" id="14" onclick="toggleSelection('14')"></th>
+                </tr>
+                <tr>
+                    <th><img src="{{ images[15] }}" id="15" onclick="toggleSelection('15')"></th>
+                    <th><img src="{{ images[16] }}" id="16" onclick="toggleSelection('16')"></th>
+                    <th><img src="{{ images[17] }}" id="17" onclick="toggleSelection('17')"></th>
+                    <th><img src="{{ images[18] }}" id="18" onclick="toggleSelection('18')"></th>
+                    <th><img src="{{ images[19] }}" id="19" onclick="toggleSelection('19')"></th>
+                </tr>
+            </table>
+            <input type="hidden" name="selected_image1" id="selected_image1">
+            <input type="hidden" name="selected_image2" id="selected_image2">
+            <input type="submit" value="Submit">
+        </form>
+        <script src="/static/js/script.js"></script>
+    </main>
+</body>
+
+</html>
