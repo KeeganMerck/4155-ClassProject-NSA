@@ -97,7 +97,8 @@ def validate(model):
 
 #called by imcap.py
 #all print statements will be deleted once debugging is done
-def login(register, login, userName):
+def loginFace(register, login, userName):
+    loginVal = 0
 #if they are a new account, encode adn validate them, 
     if register == 1:
         encode_known_faces(usertestData)
@@ -105,22 +106,23 @@ def login(register, login, userName):
         named = recognize_faces(login, "hog", DEFAULT_ENCODINGS_PATH)
         #if their name does not match the username detected don't let them in 1 and -1 represent in or not
         if named.lower() != userName.lower():
-            print("DONT LOG THEM IN NOOOO AHHHHHHH")
+            print(named, userName)
             loginVal = -1
         else:
-            print("Yeah they're chill")
+            print(named, userName)
+
             loginVal = 1
-        print(named, userName)
 #if they are not new just get the name detected and then see if they are loginable
     if register == 0:
         #hog is histogram of origneted gradients for object detectiosn and is CPU intensive
         named = recognize_faces(login, "hog", DEFAULT_ENCODINGS_PATH)
-        print(named, userName)
         if named.lower() != userName.lower():
-            print("DONT LOG THEM IN NOOOO AHHHHHHH")
+            print(named, userName)
             loginVal = -1
         else:
-            print("Yeah they're chill")
+            print(named, userName)
+
             loginVal = 1
+    return loginVal
     
 
