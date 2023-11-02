@@ -80,6 +80,8 @@ class User(db.Model):
   email = db.Column(db.String(120), unique=True, nullable=False)
   imagecategory = db.Column(db.String(50), nullable=False)
   image_path = db.Column(db.String(255))
+  #login route
+  #route for login in
   
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -87,10 +89,11 @@ def login():
         username = request.form['username']
         #query for username in the db
         user = User.query.filter_by(username=username).first()
+        #if username is good then go to next step
         if user:
             usernameDict["username"] = user
    
-            #this guy down here needs to be changed
+            #If the username is good then we go to the next step in the login process which is image upload for face recognition
         return redirect("/upload", code=302)
     return render_template('login.html')
 
