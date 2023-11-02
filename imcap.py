@@ -18,7 +18,7 @@
 #user edited                                                                            
 
 
-from modifedFacereco import login
+from modifedFacereco import loginFace
 # importing OpenCV library
 #import keyboard button lib
 import cv2
@@ -26,9 +26,9 @@ import os
 import msvcrt
 # initialize the cameraera
 register = 0
-loginimage = "joetest.jpg"
+loginimage = "kmercktest.png"
 #this var will be changed for when we start getting a usernaem from the website
-username = "joe" 
+username = "kmerck" 
 current_dir = os.getcwd() 
 
 #directory informatoin about stuff 
@@ -61,7 +61,7 @@ if register == 1:
 
                 #wait for hte next key press and delete the current up window
                 cv2.waitKey(0)
-                cv2.destroyWindow("getFace")
+                #cv2.destroyWindow("getFace")
 
             # If captured image is corrupted, moving to else part
             elif i >=10:
@@ -77,4 +77,4 @@ if register == 1:
             else:
                 print("No image detected. Please! try again")
 #jerb.jpg will be changed out for the user captured image from their facecamera when they recognize themselves in
-login(register, loginimage, username)
+loginFace(register, loginimage, username)

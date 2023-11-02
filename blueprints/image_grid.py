@@ -11,7 +11,7 @@ user_category = 0 #correct category is 0 (planes)
 router = Blueprint('image_selection', __name__, template_folder='templates')
 
 #Image grid form page
-@router.get('/')
+@router.get('/image_grid')
 def image_page():
     image_nums = []
     img_urls = []
