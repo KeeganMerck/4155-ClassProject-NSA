@@ -16,17 +16,14 @@
 # 4) view values in terminal window or 4155User.db
 
 
-
-import base64
-from flask import Flask, request, session
-from flask import render_template, request, redirect, url_for
+from flask import Flask, request, session, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
 from blueprints.image_grid import router as image_router
 
-
 from modifedFacereco import loginFace
+
 # init app variable
 app = Flask(__name__)
 usernameDict = {}
@@ -45,6 +42,10 @@ migrate = Migrate(app, db)
 # calling of image grid blueprints to handle routes
 app.register_blueprint(image_router)
 
+@app.route('/')
+def default():
+    return redirect('/login')
+
 @app.route('/create_account', methods=['GET', 'POST'])
 def create_account():
     if request.method == 'POST':
@@ -57,20 +58,9 @@ def create_account():
         db.session.add(user)
         db.session.commit()
 
-        return redirect(url_for('success'))
+        flash("Account Creation Successful", "success")
+        return redirect("/login")
     return render_template('accountcreation.html')
-
-@app.route('/success')
-def success():
-    return 'Account created successfully!'
-
-@app.route('/fail')
-def fail():
-    return 'Failed to recognize you'
-
-@app.route('/reco')
-def reco():
-    return 'recognize you'
 
 
 class User(db.Model):
@@ -125,9 +115,11 @@ def upload_image():
             # Save the image to the "uploads" folder
     #if the image iis elog inable then and matches the users face then redirect them to the next pge
         if session.get('corVal') == 1:
-            return redirect(url_for("reco"))
+            flash("Face Recognized", "success")
+            return redirect("/image_grid")
         else:
             #redirect them to the failed page
-            return redirect(url_for("fail"))
+            flash("Face could not be recognized", "error")
+            return redirect("/login")
     return render_template('camcam.html')
 
