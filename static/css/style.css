@@ -34,3 +34,14 @@
   margin: 10px;
   border-radius: 5px;
 }
+
+#accountCreation {
+  margin-left: 25%;
+  margin-right: 25%; 
+}
+
+.accountCreationInput {
+  width: 50%;
+  margin-bottom: 1%;
+  margin-top: 0.5%;
+}
