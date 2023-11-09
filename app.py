@@ -19,10 +19,12 @@
 from flask import Flask, request, session, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-
+import os
 from blueprints.image_grid import router as image_router
-
+import requests
 from modifedFacereco import loginFace
+import re
+from werkzeug.datastructures import FileStorage
 
 # init app variable
 app = Flask(__name__)
@@ -55,11 +57,12 @@ def create_account():
         imagecategory = request.form['imagecategory']
 
         user = User(username=username, name=name, email=email, imagecategory=imagecategory)
+        session['currentUser'] = user.username
         db.session.add(user)
         db.session.commit()
 
-        flash("Account Creation Successful", "success")
-        return redirect("/login")
+        flash("Account Information taken")
+        return redirect("/create2")
     return render_template('accountcreation.html')
 
 
@@ -123,3 +126,34 @@ def upload_image():
             return redirect("/login")
     return render_template('camcam.html')
 
+#CHANGE NAME OF THIS WACK ASS BO
+@app.route('/create2', methods=['POST', 'GET'])
+def uploadTestImages():
+    #on post request:
+    if request.method == 'POST':
+        print(session['currentUser'])
+        
+        #get the image
+        image = request.files['image']
+       
+        if image:
+            #save the image
+            paths = "test/"+str(session['currentUser'])
+            pathe = os.path.exists(paths)
+            if not pathe:
+
+            # Create a new directory because it does not exist
+                os.makedirs(paths)
+                print("The new directory is created!")
+            image.save(str(paths)+"/"+str(session['currentUser'])+ image.filename)
+           
+            flash("Account Created Successfully")
+    #if there is an image then 
+           
+            # Save the image to the "uploads" folder
+    #if the image iis elog inable then and matches the users face then redirect them to the next pge
+        
+    return render_template('testPhotos.html')
+
+#Chat gpt bullish 
+        
