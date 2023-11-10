@@ -19,10 +19,12 @@
 from flask import Flask, request, session, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-
+import os
 from blueprints.image_grid import router as image_router
-
+import requests
 from modifedFacereco import loginFace
+import re
+from werkzeug.datastructures import FileStorage
 
 # init app variable
 app = Flask(__name__)
@@ -55,11 +57,12 @@ def create_account():
         imagecategory = request.form['imagecategory']
 
         user = User(username=username, name=name, email=email, imagecategory=imagecategory)
+        session['currentUser'] = user.username
         db.session.add(user)
         db.session.commit()
 
-        flash("Account Creation Successful", "success")
-        return redirect("/login")
+        flash("Account Information taken")
+        return redirect("/create2")
     return render_template('accountcreation.html')
 
 
@@ -85,6 +88,7 @@ def login():
    
             #If the username is good then we go to the next step in the login process which is image upload for face recognition
         return redirect("/upload", code=302)
+    
     return render_template('login.html')
 
 #For face Reco
@@ -121,5 +125,59 @@ def upload_image():
             #redirect them to the failed page
             flash("Face could not be recognized", "error")
             return redirect("/login")
+    
     return render_template('camcam.html')
 
+#CHANGE NAME OF THIS WACK ASS BO
+@app.route('/create2', methods=['POST', 'GET'])
+def uploadTestImages():
+    #on post request:
+    session['redire'] = '/create_account'
+    if request.method == 'POST':
+        print(session['currentUser'])
+        
+        #get the image
+        image = request.files['image']
+       
+        if image:
+            #save the image
+            paths = "test/"+str(session['currentUser'])
+            pathe = os.path.exists(paths)
+            if not pathe:
+
+            # Create a new directory because it does not exist
+                os.makedirs(paths)
+                print("The new directory is created!")
+            image.save(str(paths)+"/"+str(session['currentUser'])+ image.filename)
+
+            flash("Account Created Successfully")
+    #if there is an image then 
+        if("1.png" in image.filename ):
+            if loginFace(1, str(paths)+"/"+str(session['currentUser'])+ image.filename, session['currentUser']) == 1:
+
+                session['redire'] = '/login'    
+        else:
+             session['redire'] = '/create_account'
+        print(session['redire'])
+        
+        return redirect(session['redire'])
+            
+        
+            # Save the image to the "uploads" folder
+    #if the image iis elog inable then and matches the users face then redirect them to the next pge
+        
+    return render_template('testPhotos.html')
+
+
+@app.route('/delete_all_users', methods=['GET'])
+def delete_all_users():
+    try:
+        # Use SQLAlchemy to delete all rows in the User table
+        db.session.query(User).delete()
+        db.session.commit()
+        flash("All users have been deleted successfully.", "success")
+    except Exception as e:
+        db.session.rollback()
+        flash(f"Failed to delete all users: {str(e)}", "error")
+    return redirect("/login")
+        

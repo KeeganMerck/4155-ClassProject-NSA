@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Capture</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class="flashes">
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    <video id="video" width="640" height="480" autoplay></video>
+    <button id="capture">Capture</button>
+    <canvas id="canvas" width="640" height="480" style="display: none;"></canvas>
+    <a href = "/login"><button type="submit"></button>Login</button></a> 
+
+    <script>
+        // Get all the elements
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+        const captureButton = document.getElementById('capture');
+        const ctx = canvas.getContext('2d');
+        const captureCount = 10; // Number of captures
+
+        // Function to capture and upload images
+        const captureAndUpload = (count) => {
+    if (count <= 0) {
+        return; // Stop capturing after 10 images
+    }
+
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+    // Capture the image as a Blob
+    canvas.toBlob((blob) => {
+        const formData = new FormData();
+        formData.append('image', blob, `captured-image-${count}.png`);
+
+        // Submit the form to upload the image to the Flask backend
+        fetch('/create2', {
+            method: 'POST',
+            body: formData,
+        })
+        .then(response => response.text())
+        .then(data => {
+            console.log(data);
+            setTimeout(() => {
+                captureAndUpload(count - 1); // Capture the next image after a 1-second delay
+            }, 1000); // 1000 milliseconds (1 second) delay
+        })
+        .catch(error => {
+            console.error('Error uploading image:', error);
+            setTimeout(() => {
+                captureAndUpload(count - 1); // Capture the next image after a 1-second delay even if there's an error
+            }, 1000); // 1000 milliseconds (1 second) delay
+        });
+    }, 'image/png');
+};
+
+        // Get user's camera and stream their video
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then((stream) => {
+                video.srcObject = stream;
+            })
+            .catch((error) => {
+                console.error('Error accessing the camera:', error);
+            });
+
+        // Start capturing images when the "Capture" button is clicked
+        captureButton.addEventListener('click', () => {
+            captureAndUpload(captureCount);
+        });
+    </script>
+</body>
+</html>
