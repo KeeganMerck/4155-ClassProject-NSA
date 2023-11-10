@@ -88,6 +88,7 @@ def login():
    
             #If the username is good then we go to the next step in the login process which is image upload for face recognition
         return redirect("/upload", code=302)
+    
     return render_template('login.html')
 
 #For face Reco
@@ -124,12 +125,14 @@ def upload_image():
             #redirect them to the failed page
             flash("Face could not be recognized", "error")
             return redirect("/login")
+    
     return render_template('camcam.html')
 
 #CHANGE NAME OF THIS WACK ASS BO
 @app.route('/create2', methods=['POST', 'GET'])
 def uploadTestImages():
     #on post request:
+    session['redire'] = '/create_account'
     if request.method == 'POST':
         print(session['currentUser'])
         
@@ -146,14 +149,35 @@ def uploadTestImages():
                 os.makedirs(paths)
                 print("The new directory is created!")
             image.save(str(paths)+"/"+str(session['currentUser'])+ image.filename)
-           
+
             flash("Account Created Successfully")
     #if there is an image then 
-           
+        if("1.png" in image.filename ):
+            if loginFace(1, str(paths)+"/"+str(session['currentUser'])+ image.filename, session['currentUser']) == 1:
+
+                session['redire'] = '/login'    
+        else:
+             session['redire'] = '/create_account'
+        print(session['redire'])
+        
+        return redirect(session['redire'])
+            
+        
             # Save the image to the "uploads" folder
     #if the image iis elog inable then and matches the users face then redirect them to the next pge
         
     return render_template('testPhotos.html')
 
-#Chat gpt bullish 
+
+@app.route('/delete_all_users', methods=['GET'])
+def delete_all_users():
+    try:
+        # Use SQLAlchemy to delete all rows in the User table
+        db.session.query(User).delete()
+        db.session.commit()
+        flash("All users have been deleted successfully.", "success")
+    except Exception as e:
+        db.session.rollback()
+        flash(f"Failed to delete all users: {str(e)}", "error")
+    return redirect("/login")
         
