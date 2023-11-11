@@ -1,27 +1,19 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Account-Creation</title>
-    <link rel="stylesheet" href="/static/css/style.css">
-</head>
-<body id="accountCreation">
-    <main>
-        <h2>Create Account</h2>
+{% include('./partials/header.html') %}
+    <main class="loginMain">
+        <title>Create Account</title>
+        <h1>Create Account</h1>
         <!--
         Form for account creation that currently sends the information to #
         -->
         <form action="/create_account" method="POST">
             <label for="username">Username</label><br>
-            <input class="accountCreationInput" type="text" id="username" name="username" required><br>
+            <input class="accountCreationText" type="text" id="username" name="username" required><br>
 
             <label for="name">Name</label><br>
-            <input class="accountCreationInput" type="text" id="name" name="name"required><br>
+            <input class="accountCreationText" type="text" id="name" name="name"required><br>
 
             <label for="email">Email</label><br>
-            <input class="accountCreationInput" type="email" id="email" name="email" required><br>
+            <input class="accountCreationText" type="email" id="email" name="email" required><br>
 
             <label for="imagecategory">Image Category</label><br>
             <select class="accountCreationInput" id="imagecategory" name="imagecategory" required>
@@ -38,11 +30,11 @@
             -->
             <div>
                 <strong><label>Image Offset Pattern</label><br></strong>
-                <label for="vertical">Vertical</label><br>
-                <input class="accountCreationInput" type="vertical" id="vertical" name="vertical" required><br>
+                <label for="vertical">Vertical (1-5)</label><br>
+                <input class="accountCreationText" type="vertical" id="vertical" name="vertical" required><br>
 
-                <label for="horizontal">Horizontal</label><br>
-                <input class="accountCreationInput" type="horizontal" id="horizontal" name="horizontal" required><br>
+                <label for="horizontal">Horizontal (1-5)</label><br>
+                <input class="accountCreationText" type="horizontal" id="horizontal" name="horizontal" required><br>
 
             </div>
             
@@ -67,11 +59,10 @@
             </select><br>
 
             <label for="rotationvalue">Rotation Value</label><br>
-            <input class="accountCreationInput"type="rotationvalue" id="rotationvalue" name="rotationvalue" required><br><br>
+            <input class="accountCreationText"type="rotationvalue" id="rotationvalue" name="rotationvalue" required><br><br>
 
-            <input type="submit" value="Continue to Capture Face Image">
+            <button class="createAccButton" type="submit">Continue to Capture Face Image</button>
         </form>
     </main> 
-</body>
-</html>
+{% include('./partials/footer.html') %}
 
