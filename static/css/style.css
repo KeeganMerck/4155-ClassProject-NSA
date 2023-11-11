@@ -1,13 +1,13 @@
-  .image_grid tr th img {
-    margin: 4px;
-    vertical-align: middle;
-    width: 70px;
-    border:3px solid transparent
-  }
+.image_grid tr th img {
+  margin: 4px;
+  vertical-align: middle;
+  width: 70px;
+  border:3px solid transparent
+}
 
-  .image_grid{
-    margin:auto; 
-  }
+.image_grid{
+  margin:auto; 
+}
 
   /* Style for flash messages */
 .flashes {
@@ -35,13 +35,104 @@
   border-radius: 5px;
 }
 
-#accountCreation {
-  margin-left: 25%;
-  margin-right: 25%; 
-}
-
 .accountCreationInput {
-  width: 50%;
+  width: 100%;
   margin-bottom: 1%;
   margin-top: 0.5%;
+}
+
+.accountCreationText {
+  width: 99%;
+  margin-bottom: 1%;
+  margin-top: 0.5%;
+}
+
+body{
+  margin: 0;
+}
+
+nav {
+  background-color: #333;
+  overflow: hidden;
+}
+
+nav a {
+  float: left;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 27px 16px;
+  text-decoration: none;
+}
+
+.logo {
+  float: left;
+}
+
+.logoImage {
+  height: 50px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+}
+
+nav a:hover {
+  color: #666666;
+}
+
+footer {
+  padding-top: 25px;
+  text-align: center;
+}
+
+.loginMain {
+  margin-left: 25%;
+  margin-right: 25%;
+}
+
+.loginForm {
+  margin-top: 1%;
+  width: 100%;
+}
+
+.loginButtons {
+  background-color: #e87121;
+  color: white;
+  border: none;
+  padding: 15px 15px;
+  margin-right: 25px;
+}
+
+.loginButtonDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.createAccButton {
+  background-color: #e87121;
+  color: white;
+  border: none;
+  padding: 15px 15px;
+  width: 100%;
+}
+
+.imageCaptureVideo {
+  margin-left: 32%;
+  padding: 15px 15px;
+}
+
+.imageSelectText{
+  text-align: center;
+}
+
+.imageSelectButton {
+  margin-top: 2%;
+  margin-left: 39%;
+  background-color: #e87121;
+  color: white;
+  border: none;
+  padding: 15px 15px;
+  width:22%;
 }
