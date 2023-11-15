@@ -1,15 +1,5 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image-Selection</title>
-    <link rel="stylesheet" href="/static/css/style.css">
-</head>
-
-<body>
+{% include('./partials/header.html') %}
+<title> Image-Selection</title>
     <main>
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
@@ -20,6 +10,7 @@
                 </ul>
             {% endif %}
         {% endwith %}
+        <h1 class="imageSelectText">Image Selection</h1>
         <form action="process_form.py" method="post">
             <table class="image_grid">
                 <tr>
@@ -53,10 +44,8 @@
             </table>
             <input type="hidden" name="selected_image1" id="selected_image1">
             <input type="hidden" name="selected_image2" id="selected_image2">
-            <input type="submit" value="Submit">
+            <input class="imageSelectButton" type="submit" value="Submit">
         </form>
         <script src="/static/js/script.js"></script>
     </main>
-</body>
-
-</html>
+{% include('./partials/footer.html') %}
