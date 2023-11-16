@@ -78,6 +78,7 @@ class User(db.Model):
   
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    session['corVal'] = 0
     if request.method == 'POST':
         username = request.form['username']
         #query for username in the db
@@ -103,7 +104,7 @@ def login():
 @app.route('/upload', methods=['POST', 'GET'])
 def upload_image():
     #on post request:
-    if request.method == 'POST':
+    if request.method == 'POST' and request.files['image']:
         #get the image
         image = request.files['image']
     #if there is an image then 
@@ -125,6 +126,8 @@ def upload_image():
             #redirect them to the failed page
             flash("Face could not be recognized", "error")
             return redirect("/login")
+    if request.method == 'POST' and session.get('corVal') == 1:
+        return redirect("/image_grid")
     
     return render_template('camcam.html')
 
