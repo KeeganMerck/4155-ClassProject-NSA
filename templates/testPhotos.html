@@ -13,7 +13,10 @@
     <div class="loginButtonDiv">
         <button class="loginButtons" id="capture" type="submit">Capture</button>
         <canvas id="canvas" width="640" height="480" style="display: none;"></canvas>
-        <button class="loginButtons" onclick="location.href='/login'" type="submit">Login</button>
+        <form action="/create2" method="POST" enctype="multipart/form-data">
+            <input type="file" name="image" id="image" style="display: none;">
+            <button class="loginButtons" type="submit" value="Upload">Upload</button>
+        </form>
     </div>
 
     <script>

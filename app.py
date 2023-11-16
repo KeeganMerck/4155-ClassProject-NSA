@@ -50,6 +50,8 @@ def default():
 
 @app.route('/create_account', methods=['GET', 'POST'])
 def create_account():
+    session['redire'] = '/create2'
+    session['flag'] = 0
     if request.method == 'POST':
         username = request.form['username']
         name = request.form['name']
@@ -78,6 +80,7 @@ class User(db.Model):
   
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+   
     session['corVal'] = 0
     if request.method == 'POST':
         username = request.form['username']
@@ -135,13 +138,13 @@ def upload_image():
 @app.route('/create2', methods=['POST', 'GET'])
 def uploadTestImages():
     #on post request:
-    session['redire'] = '/create_account'
-    if request.method == 'POST':
+    
+    if request.method == 'POST' and request.files['image']:
         print(session['currentUser'])
-        
+        session['flag'] = 0
         #get the image
         image = request.files['image']
-       
+        session['redire'] = '/create2'
         if image:
             #save the image
             paths = "test/"+str(session['currentUser'])
@@ -157,7 +160,7 @@ def uploadTestImages():
     #if there is an image then 
         if("1.png" in image.filename ):
             if loginFace(1, str(paths)+"/"+str(session['currentUser'])+ image.filename, session['currentUser']) == 1:
-
+                session['flag'] = 1
                 session['redire'] = '/login'    
         else:
              session['redire'] = '/create_account'
@@ -165,7 +168,8 @@ def uploadTestImages():
         
         return redirect(session['redire'])
             
-        
+    if request.method == 'POST' and session.get('flag') == 1:
+        return redirect(session['redire'])
             # Save the image to the "uploads" folder
     #if the image iis elog inable then and matches the users face then redirect them to the next pge
         
