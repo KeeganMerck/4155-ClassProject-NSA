@@ -46,7 +46,7 @@ def upload_image():
 def uploadTestImages_page():
     return render_template('testPhotos.html')
 
-@router.get('/create2')
+@router.post('/create2')
 def uploadTestImages():
     #on post request:
     session['redire'] = '/create_account'
@@ -58,10 +58,9 @@ def uploadTestImages():
     
     if image:
         #save the image
-        paths = "test/"+str(session['currentUser'])
+        paths = "./test/"+str(session['currentUser'])
         pathe = os.path.exists(paths)
         if not pathe:
-
         # Create a new directory because it does not exist
             os.makedirs(paths)
             print("The new directory is created!")
