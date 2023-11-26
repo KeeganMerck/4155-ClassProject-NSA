@@ -1,15 +1,6 @@
 {% include('./partials/header.html') %}
 <title>Home</title>
     <main class="loginMain">
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                <ul class="flashes">
-                    {% for category, message in messages %}
-                        <li class="{{ category }}">{{ message }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-        {% endwith %}
         <h1>Home page</h1>
         <p>Proceed with Application</p>
     </main>

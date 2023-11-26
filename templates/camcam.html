@@ -1,14 +1,5 @@
 {% include('./partials/header.html') %}
     <title>Image Capture</title>
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            <ul class="flashes">
-                {% for category, message in messages %}
-                    <li class="{{ category }}">{{ message }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-    {% endwith %}
     <video class="imageCaptureVideo" id="video" width="640" height="480" autoplay></video><br>
     <div class="loginButtonDiv">
         <button class="loginButtons" id="capture">Capture</button>

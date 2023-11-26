@@ -1,15 +1,6 @@
 {% include('./partials/header.html') %}
 <title> Image-Selection</title>
     <main>
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                <ul class="flashes">
-                    {% for category, message in messages %}
-                        <li class="{{ category }}">{{ message }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-        {% endwith %}
         <h1 class="imageSelectText">Image Selection</h1>
         <form action="process_form.py" method="post">
             <table class="image_grid">
