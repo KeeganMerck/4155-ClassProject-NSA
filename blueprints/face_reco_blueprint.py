@@ -3,7 +3,7 @@ import os
 
 from modifedFacereco import loginFace
 from models.models import db, User
-
+from checkSesh import checkPage
 router = Blueprint('facereco', __name__, template_folder='templates')
 
 #For face Reco
@@ -15,7 +15,13 @@ router = Blueprint('facereco', __name__, template_folder='templates')
 
 @router.get('/upload')
 def upload_image_page():
-    return render_template('camcam.html')
+    print(session.get('location'))
+    if( session.get('location') != None and checkPage(session.get('location'),2) >= 1):
+        
+        return render_template('camcam.html')
+    else:
+        flash("You do not have permission", "success")
+        return redirect("/login")
 
 @router.route('/upload', methods=['POST', 'GET'])
 def upload_image():
@@ -42,7 +48,11 @@ def upload_image():
             #redirect them to the failed page
             flash("Face could not be recognized", "error")
             return redirect("/login")
-    if request.method == 'POST' and session.get('corVal') == 1:
+    print(session.get('location'))
+    print(session.get('corVal'))
+    print(checkPage(session.get('location'),2))
+    if request.method == 'POST' and session.get('corVal') == 1  and session.get('location') != None and checkPage(session.get('location'),2) >= 1:
+        session['location'] = 3
         return redirect("/image_grid")
     
     return render_template('camcam.html')
@@ -81,6 +91,7 @@ def uploadTestImages():
         return redirect(session['redire'])
             
     if request.method == 'POST' and session.get('flag') == 1:
+        session['flag'] = 2
         return redirect(session['redire'])
             # Save the image to the "uploads" folder
     #if the image iis elog inable then and matches the users face then redirect them to the next pge

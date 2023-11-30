@@ -6,6 +6,7 @@ from PIL import Image
 import base64
 import io
 import random
+from checkSesh import checkPage
 
 user_category = 0 #correct category is 0 (planes)
 
@@ -14,46 +15,50 @@ router = Blueprint('image_selection', __name__, template_folder='templates')
 #Image grid form page
 @router.get('/image_grid')
 def image_page():
-    image_nums = []
-    img_urls = []
-    label_list = []
+    if( session.get('location') != None and checkPage(session.get('location'),3) >= 1):
+        image_nums = []
+        img_urls = []
+        label_list = []
 
-    label_count = {"0":0, "1":0, "2":0, "3":0, "4":0, "5":0, "6":0, "7":0, "8":0, "9":0}
+        label_count = {"0":0, "1":0, "2":0, "3":0, "4":0, "5":0, "6":0, "7":0, "8":0, "9":0}
 
-    while len(img_urls) < 20:
-        # get random number but ensure number is not already in array
-        num = random.randrange(0,5000)
-        if not (num in image_nums) and is_unique_within_window(num):
-            image_nums.append(num)
-        else:
-            continue
+        while len(img_urls) < 20:
+            # get random number but ensure number is not already in array
+            num = random.randrange(0,5000)
+            if not (num in image_nums) and is_unique_within_window(num):
+                image_nums.append(num)
+            else:
+                continue
 
-        # get image and label associated with index
-        image, label = single_image(int(num))
+            # get image and label associated with index
+            image, label = single_image(int(num))
 
-        # ensure not more than 2 of each label is in the grid
-        label = str(label)[1]
-        if label_count[label] == 2:
-            continue
-        else:
-            label_count[label] = label_count[label] + 1
+            # ensure not more than 2 of each label is in the grid
+            label = str(label)[1]
+            if label_count[label] == 2:
+                continue
+            else:
+                label_count[label] = label_count[label] + 1
 
-        # push the unique image number to table
-        push_to_stack(num)
+            # push the unique image number to table
+            push_to_stack(num)
 
-        #encode image to pass to template
-        img = Image.fromarray(np.array(image).astype(np.uint8))
-        image_io = io.BytesIO()
-        img.save(image_io, 'PNG')
-        dataurl = 'data:image/png;base64,' + base64.b64encode(image_io.getvalue()).decode('ascii')
+            #encode image to pass to template
+            img = Image.fromarray(np.array(image).astype(np.uint8))
+            image_io = io.BytesIO()
+            img.save(image_io, 'PNG')
+            dataurl = 'data:image/png;base64,' + base64.b64encode(image_io.getvalue()).decode('ascii')
 
-        #store dataurls in array
-        img_urls.append(dataurl)
-        label_list.append(label)
+            #store dataurls in array
+            img_urls.append(dataurl)
+            label_list.append(label)
 
-    session['label_list'] = label_list
+        session['label_list'] = label_list
 
-    return render_template('image_grid.html', images = img_urls)
+        return render_template('image_grid.html', images = img_urls)
+    else:
+        flash("You do not have permission", "success")
+        return redirect("/login")
 
 #Processing image grid form selections
 @router.post('/process_form.py')
