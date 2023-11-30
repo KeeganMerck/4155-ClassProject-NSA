@@ -1,68 +1,82 @@
 {% include('./partials/header.html') %}
-    <main class="loginMain">
-        <title>Create Account</title>
-        <h1>Create Account</h1>
-        <!--
+<main class="loginMain">
+    <title>Create Account</title>
+    <h1>Create Account</h1>
+    <!--
         Form for account creation that currently sends the information to #
         -->
-        <form action="/create_account" method="POST">
-            <label for="username">Username</label><br>
-            <input class="accountCreationText" type="text" id="username" name="username" required><br>
+    <form action="/create_account" method="POST">
+        <label for="username">Username</label><br>
+        <input class="accountCreationText" type="text" id="username" name="username" required><br>
 
-            <label for="name">Name</label><br>
-            <input class="accountCreationText" type="text" id="name" name="name"required><br>
+        <label for="name">Name</label><br>
+        <input class="accountCreationText" type="text" id="name" name="name" required><br>
 
-            <label for="email">Email</label><br>
-            <input class="accountCreationText" type="email" id="email" name="email" required><br>
+        <label for="email">Email</label><br>
+        <input class="accountCreationText" type="email" id="email" name="email" required><br>
 
-            <label for="imagecategory">Image Category</label><br>
-            <select class="accountCreationInput" id="imagecategory" name="imagecategory" required>
-                <option value disabled selected>Select a Category</option>
-                <option value="dogs">Dogs</option>
-                <option value="cars">Cars</option>
-                <option value="flowers">Flowers</option>
-                <option value="buildings">Buildings</option>
-                <option value="buses">Buses</option>
-            </select><br>
+        <label for="imagecategory">Image Category</label><br>
+        <select class="accountCreationInput" id="imagecategory" name="imagecategory" required>
+            <option value disabled selected>Select a Category</option>
+            <option value="Dogs">Dogs</option>
+            <option value="Horses">Horses</option>
+            <option value="Planes">Planes</option>
+            <option value="Boats">Boats</option>
+            <option value="Frogs">Frogs</option>
+        </select><br>
 
-            <!--
+        <!--
             Make columns to resemble the figma design
             -->
-            <div>
-                <strong><label>Image Offset Pattern</label><br></strong>
-                <label for="vertical">Vertical (1-5)</label><br>
-                <input class="accountCreationText" type="vertical" id="vertical" name="vertical" required><br>
-
-                <label for="horizontal">Horizontal (1-5)</label><br>
-                <input class="accountCreationText" type="horizontal" id="horizontal" name="horizontal" required><br>
-
-            </div>
-            
-            <label for="firstfacelocation">First Face Location</label><br>
-            <select class="accountCreationInput" id="firstfacelocation" name="firstfacelocation" required>
-                <option value disabled selected>Select First Location</option>
-                <option value="leye">Left Eye</option>
-                <option value="reye">Right Eye</option>
-                <option value="nose">Nose</option>
-                <option value="chin">Chin</option>
-                <option value="forehead">Forehead</option>
+        <div>
+            <strong><label>Image Offset Pattern</label><br></strong>
+            <label for="vertical">Vertical</label><br>
+            <select class="accountCreationInput" id="vertical" name="vertical" required>
+                <option value disabled selected>Select Vertical</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
             </select><br>
 
-            <label for="secondfacelocation">Second Face Location</label><br>
-            <select class="accountCreationInput" id="secondfacelocation" name="secondfacelocation" required>
-                <option value disabled selected>Select Second Location</option>
-                <option value="leye">Left Eye</option>
-                <option value="reye">Right Eye</option>
-                <option value="nose">Nose</option>
-                <option value="chin">Chin</option>
-                <option value="forehead">Forehead</option>
+            <label for="horizontal">Horizontal</label><br>
+            <select class="accountCreationInput" id="horizontal" name="horizontal" required>
+                <option value disabled selected>Select Horizontal</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
             </select><br>
 
-            <label for="rotationvalue">Rotation Value</label><br>
-            <input class="accountCreationText"type="rotationvalue" id="rotationvalue" name="rotationvalue" required><br><br>
+        </div>
 
-            <button class="createAccButton" type="submit">Continue to Capture Face Image</button>
-        </form>
-    </main> 
+        <label for="firstfacelocation">First Face Location</label><br>
+        <select class="accountCreationInput" id="firstfacelocation" name="firstfacelocation" required>
+            <option value disabled selected>Select First Location</option>
+            <option value="leye">Left Eye</option>
+            <option value="reye">Right Eye</option>
+            <option value="nose">Nose</option>
+            <option value="chin">Chin</option>
+            <option value="forehead">Forehead</option>
+        </select><br>
+
+        <label for="secondfacelocation">Second Face Location</label><br>
+        <select class="accountCreationInput" id="secondfacelocation" name="secondfacelocation" required>
+            <option value disabled selected>Select Second Location</option>
+            <option value="leye">Left Eye</option>
+            <option value="reye">Right Eye</option>
+            <option value="nose">Nose</option>
+            <option value="chin">Chin</option>
+            <option value="forehead">Forehead</option>
+        </select><br>
+
+        <label for="rotationvalue">Rotation Value</label><br>
+        <input class="accountCreationText" type="rotationvalue" id="rotationvalue" name="rotationvalue"
+            required><br><br>
+
+        <button class="createAccButton" type="submit">Continue to Capture Face Image</button>
+    </form>
+</main>
 {% include('./partials/footer.html') %}
-
