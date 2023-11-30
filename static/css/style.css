@@ -2,14 +2,14 @@
   margin: 4px;
   vertical-align: middle;
   width: 70px;
-  border:3px solid transparent
+  border: 3px solid transparent
 }
 
-.image_grid{
-  margin:auto; 
+.image_grid {
+  margin: auto;
 }
 
-  /* Style for flash messages */
+/* Style for flash messages */
 .flashes {
   list-style: none;
   padding: 0;
@@ -19,8 +19,10 @@
 
 /* Style for success messages */
 .flashes .success {
-  background-color: #4CAF50; /* Green background color */
-  color: #fff; /* White text color */
+  background-color: #4CAF50;
+  /* Green background color */
+  color: #fff;
+  /* White text color */
   padding: 10px;
   margin: 10px;
   border-radius: 5px;
@@ -28,8 +30,10 @@
 
 /* Style for error messages */
 .flashes .error {
-  background-color: #ff4b33; /* Red background color */
-  color: #fff; /* White text color */
+  background-color: #ff4b33;
+  /* Red background color */
+  color: #fff;
+  /* White text color */
   padding: 10px;
   margin: 10px;
   border-radius: 5px;
@@ -47,7 +51,7 @@
   margin-top: 0.5%;
 }
 
-body{
+body {
   margin: 0;
 }
 
@@ -123,7 +127,7 @@ footer {
   padding: 15px 15px;
 }
 
-.imageSelectText{
+.imageSelectText {
   text-align: center;
 }
 
@@ -134,5 +138,5 @@ footer {
   color: white;
   border: none;
   padding: 15px 15px;
-  width:22%;
+  width: 22%;
 }

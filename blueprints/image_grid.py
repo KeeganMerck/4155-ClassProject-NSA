@@ -7,20 +7,32 @@ import base64
 import io
 import random
 
-router = Blueprint('image_selection', __name__, template_folder='templates')
+router = Blueprint("image_selection", __name__, template_folder="templates")
 
-#Image grid form page
-@router.get('/image_grid')
+
+# Image grid form page
+@router.get("/image_grid")
 def image_page():
     image_nums = []
     img_urls = []
     label_list = []
 
-    label_count = {"0":0, "1":0, "2":0, "3":0, "4":0, "5":0, "6":0, "7":0, "8":0, "9":0}
+    label_count = {
+        "0": 0,
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0,
+    }
 
     while len(img_urls) < 20:
         # get random number but ensure number is not already in array
-        num = random.randrange(0,5000)
+        num = random.randrange(0, 5000)
         if not (num in image_nums) and is_unique_within_window(num):
             image_nums.append(num)
         else:
@@ -39,37 +51,52 @@ def image_page():
         # push the unique image number to table
         push_to_stack(num)
 
-        #encode image to pass to template
+        # encode image to pass to template
         img = Image.fromarray(np.array(image).astype(np.uint8))
         image_io = io.BytesIO()
-        img.save(image_io, 'PNG')
-        dataurl = 'data:image/png;base64,' + base64.b64encode(image_io.getvalue()).decode('ascii')
+        img.save(image_io, "PNG")
+        dataurl = "data:image/png;base64," + base64.b64encode(
+            image_io.getvalue()
+        ).decode("ascii")
 
-        #store dataurls in array
+        # store dataurls in array
         img_urls.append(dataurl)
         label_list.append(label)
 
-    session['label_list'] = label_list
+    session["label_list"] = label_list
 
-    return render_template('image_grid.html', images = img_urls)
+    return render_template("image_grid.html", images=img_urls)
 
-#Processing image grid form selections
-@router.post('/process_form.py')
+
+# Processing image grid form selections
+@router.post("/process_form.py")
 def process_form():
-    selected_image1 = request.form.get('selected_image1')
-    selected_image2 = request.form.get('selected_image2')
+    selected_image1 = request.form.get("selected_image1")
+    selected_image2 = request.form.get("selected_image2")
 
-    label_list = session.get('label_list', [])
+    label_list = session.get("label_list", [])
 
     userObj = User.query.filter_by(username=session["username"]).first()
 
-    label_dict = {"Planes":0,"Cars":1,"Birds":2,"Cats":3,"Deers":4,"Dogs":5,"Frogs":6,"Horses":7,"Boats":8,"Trucks":9}
+    label_dict = {
+        "Planes": 0,
+        "Cars": 1,
+        "Birds": 2,
+        "Cats": 3,
+        "Deers": 4,
+        "Dogs": 5,
+        "Frogs": 6,
+        "Horses": 7,
+        "Boats": 8,
+        "Trucks": 9,
+    }
 
     user_category = label_dict[userObj.imagecategory]
 
     if selected_image1 and selected_image2:
-    
-        if(label_list[int(selected_image1)] == str(user_category) and label_list[int(selected_image2)] == str(user_category)):
+        if label_list[int(selected_image1)] == str(user_category) and label_list[
+            int(selected_image2)
+        ] == str(user_category):
             flash("Authentication Succesfull", "success")
             return redirect("/home_page")
         else:
@@ -79,6 +106,7 @@ def process_form():
     else:
         flash("Please select two images before submitting", "error")
         return redirect("/")
+
 
 def push_to_stack(data):
     # Check if the data is unique within the specified window
@@ -96,7 +124,10 @@ def push_to_stack(data):
         db.session.add(new_entry)
         db.session.commit()
 
+
 def is_unique_within_window(data, window_size=400):
-    recent_entries = StackEntry.query.order_by(StackEntry.timestamp.desc()).limit(window_size).all()
+    recent_entries = (
+        StackEntry.query.order_by(StackEntry.timestamp.desc()).limit(window_size).all()
+    )
     recent_numbers = [entry.data for entry in recent_entries]
     return data not in recent_numbers

@@ -1,14 +1,14 @@
 {% include('./partials/header.html') %}
-    <main class="loginMain">
-        <title> Login </title>
-        <h1>Login</h1>
-        <label for="username"><b>Username/Email</b></label>
-        <form method="POST">
-            <input class="loginForm" type="text" placeholder="Enter Username" name="username" required> <br><br>
-            <div class="loginButtonDiv">
-                <button class="loginButtons" type="submit">Start Authetication</button>
-                <button class="loginButtons" onclick="location.href='/create_account'" type="button">Create Account</button>
-            </div>
-        </form>
-    </main>
-{% include('./partials/footer.html') %} 
+<main class="loginMain">
+    <title> Login </title>
+    <h1>Login</h1>
+    <label for="username"><b>Username/Email</b></label>
+    <form method="POST">
+        <input class="loginForm" type="text" placeholder="Enter Username" name="username" required> <br><br>
+        <div class="loginButtonDiv">
+            <button class="loginButtons" type="submit">Start Authetication</button>
+            <button class="loginButtons" onclick="location.href='/create_account'" type="button">Create Account</button>
+        </div>
+    </form>
+</main>
+{% include('./partials/footer.html') %}
