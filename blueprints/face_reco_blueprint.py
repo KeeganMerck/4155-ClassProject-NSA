@@ -37,14 +37,18 @@ def upload_image():
             # Save the image to the "uploads" folder
         # if the image iis elog inable then and matches the users face then redirect them to the next pge
         if session.get("corVal") == 1:
-            flash("Face Recognized", "success")
             return redirect("/image_grid")
         else:
             # redirect them to the failed page
             flash("Face could not be recognized", "error")
             return redirect("/login")
-    if request.method == "POST" and session.get("corVal") == 1:
+    
+    elif request.method == "POST" and session.get("corVal") == 1:
+        flash("Face Recognized", "success")
         return redirect("/image_grid")
+
+    elif request.method == "POST":
+        flash("Please complete the 'Capture' feature", "error")
 
     return render_template("login_image_cap.html")
 
@@ -71,14 +75,7 @@ def uploadTestImages():
 
         # if there is an image then
         if "1.png" in image.filename:
-            if (
-                loginFace(
-                    1,
-                    str(paths) + "/" + str(session["currentUser"]) + image.filename,
-                    session["currentUser"],
-                )
-                == 1
-            ):
+            if (loginFace(1, str(paths) + "/" + str(session["currentUser"]) + image.filename, session["currentUser"])== 1):
                 session["flag"] = 1
                 session.pop("currentUser", None)
                 flash("Account Created Successfully", "success")
@@ -88,9 +85,13 @@ def uploadTestImages():
 
         return redirect("/create2")
 
-    if request.method == "POST" and session.get("flag") == 1:
+    elif request.method == "POST" and session.get("flag") == 1:
+        flash("Account Created Successfully", "success")
         return redirect("/login")
         # Save the image to the "uploads" folder
-    # if the image iis elog inable then and matches the users face then redirect them to the next pge
+        # if the image is login-able then and matches the users face then redirect them to the next pge
+    
+    elif request.method == "POST":
+        flash("Please complete the 'Capture' feature", "error")
 
     return render_template("create_account_image_cap.html")
