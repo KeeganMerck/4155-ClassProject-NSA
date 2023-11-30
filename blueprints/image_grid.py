@@ -1,13 +1,11 @@
 from flask import render_template, Blueprint, request, redirect, session, flash
 from src.cifar.get_image import single_image
-from models.models import db, StackEntry
+from models.models import db, StackEntry, User
 import numpy as np
 from PIL import Image
 import base64
 import io
 import random
-
-user_category = 0 #correct category is 0 (planes)
 
 router = Blueprint('image_selection', __name__, template_folder='templates')
 
@@ -62,18 +60,21 @@ def process_form():
     selected_image2 = request.form.get('selected_image2')
 
     label_list = session.get('label_list', [])
-    
-    if selected_image1 and selected_image2:
 
-        #Display label numbers of selected images
-        #print(label_list[int(selected_image1)], label_list[int(selected_image2)])
+    userObj = User.query.filter_by(username=session["username"]).first()
+
+    label_dict = {"Planes":0,"Cars":1,"Birds":2,"Cats":3,"Deers":4,"Dogs":5,"Frogs":6,"Horses":7,"Boats":8,"Trucks":9}
+
+    user_category = label_dict[userObj.imagecategory]
+
+    if selected_image1 and selected_image2:
     
         if(label_list[int(selected_image1)] == str(user_category) and label_list[int(selected_image2)] == str(user_category)):
             flash("Authentication Succesfull", "success")
             return redirect("/home_page")
         else:
             flash("Incorrect images selected", "error")
-            return redirect("/")
+            return redirect("/image_grid")
 
     else:
         flash("Please select two images before submitting", "error")

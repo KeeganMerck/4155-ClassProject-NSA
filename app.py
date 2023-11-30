@@ -37,5 +37,3 @@ migrate = Migrate(app, db)
 app.register_blueprint(main_router)
 app.register_blueprint(image_router)
 app.register_blueprint(face_reco_router)
-
-

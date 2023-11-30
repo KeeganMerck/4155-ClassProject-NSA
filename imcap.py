@@ -32,7 +32,7 @@ username = "kmerck"
 current_dir = os.getcwd() 
 
 #directory informatoin about stuff 
-final_dr = os.path.join(current_dir, r''"test/"+username)
+final_dr = os.path.join(current_dir, r''"static/images/User_Images/"+username)
 if not os.path.exists(final_dr):
     os.makedirs(final_dr)
 final_v = os.path.join(current_dir, r''"valid/"+username)

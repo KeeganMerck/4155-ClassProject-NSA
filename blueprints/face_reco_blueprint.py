@@ -15,7 +15,7 @@ router = Blueprint('facereco', __name__, template_folder='templates')
 
 @router.get('/upload')
 def upload_image_page():
-    return render_template('camcam.html')
+    return render_template('login_image_cap.html')
 
 @router.route('/upload', methods=['POST', 'GET'])
 def upload_image():
@@ -29,7 +29,6 @@ def upload_image():
             image.save('uploads/captured-image.png')
             #see if image is loginable
             if loginFace(0, 'uploads/captured-image.png', session["username"]) == 1:
-                print("got here")
                 session['corVal'] = 1     
             else:
                 session['corVal'] = 0
@@ -45,44 +44,43 @@ def upload_image():
     if request.method == 'POST' and session.get('corVal') == 1:
         return redirect("/image_grid")
     
-    return render_template('camcam.html')
+    return render_template('login_image_cap.html')
 
 @router.route('/create2', methods=['POST', 'GET'])
 def uploadTestImages():
     #on post request:
     
     if request.method == 'POST' and request.files['image']:
-        print(session['currentUser'])
         session['flag'] = 0
         #get the image
         image = request.files['image']
-        session['redire'] = '/create2'
         if image:
             #save the image
-            paths = "test/"+str(session['currentUser'])
+            paths = "static/images/User_Images/"+str(session['currentUser'])
             pathe = os.path.exists(paths)
+            
             if not pathe:
-
-            # Create a new directory because it does not exist
+                # Create a new directory because it does not exist
                 os.makedirs(paths)
                 print("The new directory is created!")
+            
             image.save(str(paths)+"/"+str(session['currentUser'])+ image.filename)
-
-            flash("Account Created Successfully")
-    #if there is an image then 
+        
+        #if there is an image then 
         if("1.png" in image.filename ):
             if loginFace(1, str(paths)+"/"+str(session['currentUser'])+ image.filename, session['currentUser']) == 1:
                 session['flag'] = 1
-                session['redire'] = '/login'    
+                session.pop('currentUser', None)
+                flash("Account Created Successfully", "success")
+                return redirect('/login')
         else:
-             session['redire'] = '/create_account'
-        print(session['redire'])
-        
-        return redirect(session['redire'])
+             return redirect('/create_account')
+
+        return redirect('/create2')
             
     if request.method == 'POST' and session.get('flag') == 1:
-        return redirect(session['redire'])
+        return redirect('/login')
             # Save the image to the "uploads" folder
     #if the image iis elog inable then and matches the users face then redirect them to the next pge
         
-    return render_template('testPhotos.html')
+    return render_template('create_account_image_cap.html')

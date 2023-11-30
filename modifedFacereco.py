@@ -13,7 +13,7 @@ DEFAULT_ENCODINGS_PATH = Path("output/encodings.pkl")
 
 
 #folder path names
-usertestData = "test"
+usertestData = "static/images/User_Images/"
 userValid = "validate"
 
 #YOU GOTTA ADD TO THE ENCODING FILE IF IT DO NOT EXIST IF IT DO THEN YOU JUST ADD NEW FACE HOW DO I FIGURE OUT WHICH IS NEW?
@@ -106,10 +106,10 @@ def loginFace(register, login, userName):
         named = recognize_faces(login, "hog", DEFAULT_ENCODINGS_PATH)
         #if their name does not match the username detected don't let them in 1 and -1 represent in or not
         if named.lower() != userName.lower():
-            print(named, userName)
+            print("Failed account creation")
             loginVal = -1
         else:
-            print(named, userName)
+            print("Successfull account reation")
 
             loginVal = 1
 #if they are not new just get the name detected and then see if they are loginable
@@ -117,12 +117,12 @@ def loginFace(register, login, userName):
         #hog is histogram of origneted gradients for object detectiosn and is CPU intensive
         named = recognize_faces(login, "hog", DEFAULT_ENCODINGS_PATH)
         if named.lower() != userName.lower():
-            print(named, userName)
+            print("Failed login")
+
             loginVal = -1
         else:
-            print(named, userName)
+            print("Successfull login")
 
             loginVal = 1
-    return loginVal
     
-
+    return loginVal
