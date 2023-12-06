@@ -15,7 +15,7 @@ router = Blueprint("image_selection", __name__, template_folder="templates")
 def image_page():
     image_nums = []
     img_urls = []
-    label_list = []
+    label_list = [[0 for i in range(5)] for j in range(4)]
 
     label_count = {
         "0": 0,
@@ -29,6 +29,9 @@ def image_page():
         "8": 0,
         "9": 0,
     }
+
+    columnCount = 0
+    rowCount = 0
 
     while len(img_urls) < 20:
         # get random number but ensure number is not already in array
@@ -61,7 +64,13 @@ def image_page():
 
         # store dataurls in array
         img_urls.append(dataurl)
-        label_list.append(label)
+
+        label_list[rowCount][columnCount] = label
+        
+        columnCount = columnCount + 1
+        if(columnCount > 4):
+            columnCount = 0
+            rowCount = rowCount + 1
 
     session["label_list"] = label_list
 
@@ -75,6 +84,8 @@ def process_form():
     selected_image2 = request.form.get("selected_image2")
 
     label_list = session.get("label_list", [])
+
+    print(selected_image1, selected_image2, label_list)
 
     userObj = User.query.filter_by(username=session["username"]).first()
 
@@ -93,10 +104,20 @@ def process_form():
 
     user_category = label_dict[userObj.imagecategory]
 
+    ##Going to have to add (1 * horizontal)
+    ##Going to have to add (5* vertical)
+    ##Then have to mod values
+
+    im1_Column = int(selected_image1) // 10
+    im1_Row = int(selected_image1) % 10
+    im2_Column = int(selected_image2) // 10
+    im2_Row = int(selected_image2) % 10
+
+    print(im1_Column, im1_Row, im2_Column, im2_Row)
+
+
     if selected_image1 and selected_image2:
-        if label_list[int(selected_image1)] == str(user_category) and label_list[
-            int(selected_image2)
-        ] == str(user_category):
+        if label_list[im1_Column][im1_Row] == str(user_category) and label_list[im2_Column][im2_Row] == str(user_category):
             flash("Authentication Succesfull", "success")
             return redirect("/home_page")
         else:
@@ -105,7 +126,7 @@ def process_form():
 
     else:
         flash("Please select two images before submitting", "error")
-        return redirect("/")
+        return redirect("/image_grid")
 
 
 def push_to_stack(data):
