@@ -33,7 +33,7 @@ def create_account():
 
 @router.get("/login")
 def login_page():
-    session['page'] = 0
+    session['page'] = -1
     print(session.get('page'))
     session["corVal"] = 0
     return render_template("login.html")

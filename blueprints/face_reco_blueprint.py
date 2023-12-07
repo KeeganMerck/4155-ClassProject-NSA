@@ -57,7 +57,6 @@ def upload_image():
     elif request.method == "POST" and session.get("corVal") == 1:
         flash("Face Recognized", "success")
         
-        print(session.get('page'))
         return redirect("/image_grid")
     #if there is a just a post request then make sure they take a picture of their face
     elif request.method == "POST":
