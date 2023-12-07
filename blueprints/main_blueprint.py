@@ -18,9 +18,18 @@ def create_account():
         name = request.form["name"]
         email = request.form["email"]
         imagecategory = request.form["imagecategory"]
+        vertical = request.form["vertical"]
+        horizontal = request.form["horizontal"]
+        firstfacelocation = request.form["firstfacelocation"]
+        secondfacelocation = request.form["secondfacelocation"]
+        rotationvalue = request.form["rotationvalue"]
+
         user = User(
-            username=username, name=name, email=email, imagecategory=imagecategory
+            username=username, name=name, email=email, imagecategory=imagecategory,
+            horizontal=horizontal, vertical=vertical, firstfacelocation=firstfacelocation,
+            secondfacelocation=secondfacelocation, rotationvalue=rotationvalue
         )
+        
         session["currentUser"] = user.username
         db.session.add(user)
         db.session.commit()
