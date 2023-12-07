@@ -1,3 +1,4 @@
+alembic==1.12.1
 async-timeout==4.0.3
 atila==0.26.16
 biopython==1.81
@@ -18,8 +19,11 @@ face-recognition==1.3.0
 face-recognition-models==0.3.0
 fdet==0.2.1
 Flask==3.0.0
+Flask-Migrate==4.0.5
+Flask-SQLAlchemy==3.1.1
 future==0.18.3
 gprofiler-official==1.0.0
+greenlet==3.0.1
 h2==4.1.0
 hpack==4.0.0
 hyperframe==6.0.1
@@ -28,6 +32,7 @@ idna==3.4
 itsdangerous==2.1.2
 Jinja2==3.1.2
 joblib==1.3.2
+Mako==1.2.4
 MarkupSafe==2.1.3
 mygene==3.2.2
 networkx==3.1
@@ -53,11 +58,14 @@ scipy==1.11.2
 setproctitle==1.3.2
 six==1.16.0
 skitai==0.56.15
+spotipy==2.23.0
+SQLAlchemy==2.0.22
 sqlphile==0.9.7
 tfserver==0.4.10
 threadpoolctl==3.2.0
 tqdm==4.65.0
 ttictoc==0.5.6
+typing_extensions==4.8.0
 tzdata==2023.3
 urllib3==2.0.2
 webrtcvad==2.0.10

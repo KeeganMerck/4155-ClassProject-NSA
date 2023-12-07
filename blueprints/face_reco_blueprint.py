@@ -3,7 +3,7 @@ import os
 
 from modifedFacereco import loginFace
 from models.models import db, User
-
+from sesh import checkLoc
 router = Blueprint("facereco", __name__, template_folder="templates")
 
 # For face Reco
@@ -16,14 +16,24 @@ router = Blueprint("facereco", __name__, template_folder="templates")
 
 @router.get("/upload")
 def upload_image_page():
-    return render_template("login_image_cap.html")
+    print("here")
+    #basically, check if the previous page the user was on is correct and then let them through if it is, other than redirec
+    if(checkLoc(0) == 1):
+        
+        return render_template("login_image_cap.html")
+    else:
+        return redirect("/login", code=302)
+
 
 
 @router.route("/upload", methods=["POST", "GET"])
 def upload_image():
+
+    
     # on post request:
     if request.method == "POST" and request.files["image"]:
         # get the image
+        
         image = request.files["image"]
         # if there is an image then
         if image:
@@ -32,6 +42,7 @@ def upload_image():
             # see if image is loginable
             if loginFace(0, "uploads/captured-image.png", session["username"]) == 1:
                 session["corVal"] = 1
+                session['page'] = 1 
             else:
                 session["corVal"] = 0
             # Save the image to the "uploads" folder
@@ -42,11 +53,13 @@ def upload_image():
             # redirect them to the failed page
             flash("Face could not be recognized", "error")
             return redirect("/login")
-    
+    #if there is a post request and the face works out then direct to image gird ont he button
     elif request.method == "POST" and session.get("corVal") == 1:
         flash("Face Recognized", "success")
+        
+        print(session.get('page'))
         return redirect("/image_grid")
-
+    #if there is a just a post request then make sure they take a picture of their face
     elif request.method == "POST":
         flash("Please complete the 'Capture' feature", "error")
 

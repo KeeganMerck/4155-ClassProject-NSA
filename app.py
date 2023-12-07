@@ -17,7 +17,7 @@
 
 from flask import Flask
 from flask_migrate import Migrate
-
+from flask_cors import CORS
 from models.models import db
 
 from blueprints.image_grid import router as image_router
@@ -37,3 +37,4 @@ migrate = Migrate(app, db)
 app.register_blueprint(main_router)
 app.register_blueprint(image_router)
 app.register_blueprint(face_reco_router)
+CORS(app)
