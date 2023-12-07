@@ -6,12 +6,13 @@ from PIL import Image
 import base64
 import io
 import random
-
+from sesh import checkLoc
 router = Blueprint("image_selection", __name__, template_folder="templates")
 
 
 # Image grid form page
 @router.get("/image_grid")
+
 def image_page():
     image_nums = []
     img_urls = []
@@ -64,8 +65,12 @@ def image_page():
         label_list.append(label)
 
     session["label_list"] = label_list
-
-    return render_template("image_grid.html", images=img_urls)
+    if(checkLoc(1) == 1):
+        session['page'] = 1  
+        return render_template("image_grid.html", images=img_urls)
+    else:
+        return redirect("/login", code=302)
+    
 
 
 # Processing image grid form selections
