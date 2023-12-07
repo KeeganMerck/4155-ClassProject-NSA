@@ -13,6 +13,7 @@ def default():
 @router.route("/create_account", methods=["GET", "POST"])
 def create_account():
     session["flag"] = 0
+    session['page'] = -1
     if request.method == "POST":
         username = request.form["username"]
         name = request.form["name"]
@@ -41,12 +42,16 @@ def create_account():
 
 @router.get("/login")
 def login_page():
+    session['page'] = -1
+    print(session.get('page'))
     session["corVal"] = 0
     return render_template("login.html")
 
 
 @router.post("/login")
 def login():
+    session['page'] = 0
+    print(session.get('page'))
     username = request.form["username"]
     # query for username in the db
     user = User.query.filter_by(username=username).first()
@@ -85,3 +90,16 @@ def logout():
     # Clear the session data
     session.clear()
     return redirect("/")
+                                    
+
+@router.get("/delete_all_sessions")
+def delete_all_sessions():
+    try:
+        # Use SQLAlchemy to delete all rows in the User table
+        for key in list(session.keys()):
+            session.pop(key)
+        flash("All users have been deleted successfully.", "success")
+    except Exception as e:
+        db.session.rollback()
+        flash(f"Failed to delete all users: {str(e)}", "error")
+    return redirect("/create_account")
