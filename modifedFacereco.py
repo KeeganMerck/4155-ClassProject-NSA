@@ -106,7 +106,7 @@ def validate(model):
             recognize_faces(image_location=str(filepath.absolute()), model=model)
 
 
-# called by imcap.py
+# called by imcap.py and main program
 # all print statements will be deleted once debugging is done
 def loginFace(register, login, userName):
     loginVal = 0
